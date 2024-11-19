@@ -7,20 +7,30 @@
 
 
 //const sequelize = new Sequelize(CADENA_CONEXION)
-const { Sequelize,DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('postgresSQL', 'postgres', 'asuna@3101', {
-    host: 'postgres2024-1.postgres.database.azure.com',
-    dialect: 'postgres',
-    dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false 
-        }
-    }
+//const { Sequelize,DataTypes } = require('sequelize');
+
+//const sequelize = new Sequelize('postgresSQL', 'postgres', 'asuna@3101', {
+   // host: 'postgres2024-1.postgres.database.azure.com',
+   // dialect: 'postgres',
+   // dialectOptions: {
+   //     ssl: {
+   //         require: true,
+   //         rejectUnauthorized: false 
+   //     }
+   // }
+//});
+
+const { Sequelize, DataTypes } = require('sequelize');
+
+// Configuración para base de datos local
+const sequelize = new Sequelize('ejemplo', 'postgres', 'asuna@3101', {
+    host: 'localhost', // Cambia a 'localhost' para usar tu base de datos local
+    dialect: 'postgres', // Motor de base de datos
+    logging: false // Desactiva logs para evitar ruido en consola
 });
 
-
+module.exports = sequelize;
 
 
 
