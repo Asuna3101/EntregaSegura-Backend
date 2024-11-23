@@ -1,4 +1,4 @@
-const express = require("express");
+/*const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -270,4 +270,4 @@ app.listen(PORT, async () => {
   console.log(`Server running on port:${PORT}`);
 
   await sequelize.sync({ force: false });
-});
+});*
