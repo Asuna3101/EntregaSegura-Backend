@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getRepartidores = (req, res) => {
   const query = `
     SELECT r.id, r.nombre, r.apellido, r.foto, 
-           COALESCE(AVG(c.estrella), 0) AS estrellas_promedio, 
+           COALESCE(ROUND(AVG(c.estrella) * 2) / 2.0, 0) AS estrellas_promedio, 
            e.descripcion AS estado
     FROM repartidor r
     LEFT JOIN calificacion c ON r.id = c.repartidor_id
@@ -15,10 +15,10 @@ const getRepartidores = (req, res) => {
   db.all(query, [], (err, rows) => {
     if (err) {
       console.error('Error en la consulta SQL:', err.message);
-      res.status(500).json({ error: 'Error al obtener los repartidores.' });
-    } else {
-      res.json(rows);
+      return res.status(500).json({ error: 'Error al obtener los repartidores.' });
     }
+
+    res.json(rows);
   });
 };
 
@@ -27,7 +27,7 @@ const getRepartidorById = (req, res) => {
   const { id } = req.params;
   const query = `
     SELECT r.id, r.nombre, r.apellido, r.foto, 
-           COALESCE(AVG(c.estrella), 0) AS estrellas_promedio, 
+           COALESCE(ROUND(AVG(c.estrella) * 2) / 2.0, 0) AS estrellas_promedio, 
            e.descripcion AS estado
     FROM repartidor r
     LEFT JOIN calificacion c ON r.id = c.repartidor_id
@@ -39,12 +39,14 @@ const getRepartidorById = (req, res) => {
   db.get(query, [id], (err, row) => {
     if (err) {
       console.error('Error en la consulta SQL:', err.message);
-      res.status(500).json({ error: 'Error al obtener el repartidor.' });
-    } else if (!row) {
-      res.status(404).json({ error: 'Repartidor no encontrado.' });
-    } else {
-      res.json(row);
+      return res.status(500).json({ error: 'Error al obtener el repartidor.' });
     }
+
+    if (!row) {
+      return res.status(404).json({ error: 'Repartidor no encontrado.' });
+    }
+
+    res.json(row);
   });
 };
 
@@ -63,7 +65,7 @@ const getReseñasByRepartidor = (req, res) => {
   db.all(query, [id], (err, rows) => {
     if (err) {
       console.error('Error al obtener reseñas:', err.message);
-      res.status(500).json({ error: 'Error al obtener las reseñas.' });
+      return res.status(500).json({ error: 'Error al obtener las reseñas.' });
     } else {
       res.json(rows);
     }
