@@ -6,6 +6,7 @@ const repartidoresRoutes = require('./routes/repartidores');
 const usuariosRoutes = require('./routes/usuarios'); // Importa las rutas de usuarios
 const coberturaRoutes = require('./routes/cobertura'); // Importa las rutas de cobertura
 const pedidoRoutes = require('./routes/pedido');
+const reseniaRoutes = require('./routes/resenias');
 const app = express();
 const PORT = 5000;
 
@@ -20,6 +21,8 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/cobertura', coberturaRoutes); 
 app.use('/img', express.static(path.join(__dirname, 'img')));
 app.use('/api/pedido',pedidoRoutes);
+app.use('/api/resenia',reseniaRoutes);
+
 // Ruta raíz
 app.get('/', (req, res) => {
   res.send('API de Entrega Segura funcionando correctamente.');
