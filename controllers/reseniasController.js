@@ -10,9 +10,9 @@ const getReseniasByUsuarioId = (req, res) => {
   }
 
   const query = `
-        SELECT c.id, c.resenia, c.estrella, c.repartidor_id, u.nombre as repartidor_nombre
+        SELECT c.id, c.resenia, c.estrella, c.repartidor_id, c.usuario_id, u.nombre as repartidor_nombre
         FROM calificacion c
-        JOIN usuario u ON c.repartidor_id = u.id
+        JOIN repartidor u ON c.repartidor_id = u.id
         WHERE c.usuario_id = ?
         ORDER BY c.id DESC;  // Ordenando por ID para obtener las más recientes primero
     `;
